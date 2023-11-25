@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/cards.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/buttons.css' %}?v=2">
+  <title>Lista De Reportes</title>
+  <title>Tarjeta de Inventario</title>
+</head>
+<header>
+  <nav class="main-nav">
+    <div class="container-nav">
+      <div class="nav-logo">
+        <img src="{% static 'core/assets/logo.png' %}" width="60px" alt="logo">
+      </div>
+      <div class="nav-items">
+        
+        <button class="a"><a href="{% url 'activos' %}">Activos</a></button>
+        <button class="a"><a href="{% url 'admin_home' %}">Volver</a></button>
+      </div>
+    </div>
+  </nav>
+</header>
+<body>
+  <h1>LISTA DE REPORTES</h1>
+  <nav class="custom-navbar">
+    <a href="{% url 'create_report' %}"><button style="height: 40px; width: 130px;" class="agregar">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg> Agregar
+      </span>
+    </button></a>
+    <div class="container-search">
+      <input type="text" name="text" class="input" placeholder="Buscar...">
+      <button class="search__btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22">
+          <path d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z" fill="#efeff1"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  <div class="container">
+    {% for report in reports %}
+      <div class="card">
+        <div class="content">
+          <span class="title">Responsable: {{ report.nombre_responsable }}</span>
+          <p style="margin-top: 13px; margin-right: 143px;"><b>Activo:</b> {{ report.activo_titulo }}</p>
+          <p style="margin-top: 5px;"><b>Email:</b> {{ report.email }}</p>
+          <p style="margin-top: 5px;"><b>Estado Activo:</b> {{ report.estado_activo }}</p>
+          <p style="margin-top: 5px;"><b>Descripción:</b> <i>{{ report.descripcion }}</i></p>
+          <a href="{% url 'eliminar_reporte' report.id %}" class="eliminar-btn">
+            <button style="margin-top: 6px; background-color: red; color: aliceblue; border-radius: 8px;" type="button" class="eliminar-btn">Eliminar</button>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/form1.css' %}?v=2">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/buttons.css' %}">
+  <title>{% block title %}Crear Reporte{% endblock %}</title>
+</head>
+<header>
+  <nav class="main-nav">
+    <div class="container-nav">
+      <div class="nav-logo">
+        <img src="{% static 'core/assets/logo.png' %}" width="60px" alt="logo">
+      </div>
+      <div class="nav-items">
+        <button class="a"><a href="{% url 'reports' %}">Reportes</a></button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  {% block content %}
+  <form class="form" method="post" action="{% url 'create_report' %}">
+    {% csrf_token %}
+    <label  class="lb" for="activo_titulo">Seleccionar Activo:</label>
+    <select name="activo_titulo" id="activo_titulo" class="infos">
+      {% for activo in activos %}
+        <option value="{{ activo.titulo }}">{{ activo.titulo }}</option>
+      {% endfor %}
+    </select>
+    <label style="margin-top: 20px;" class="lb" for="nombre_responsable">Responsable:</label>
+    <input name="nombre_responsable" id="nombre_responsable" type="text" class="infos">
+    <label for="email" class="lb">Email:</label>
+    <input name="email" id="email" type="email" class="infos">
+    <div>
+      <label class="lb" for="estado_activo">Estado activo:</label>
+      <label class="infos" style="display: inline-block; margin-right: 15px;">General
+        <input name="estado_activo" type="radio"id="General" value="General">
+      </label>
+      <label class="infos" style="display: inline-block;">Vigente
+        <input name="estado_activo" id="Vigente" type="radio"value="Vigente">
+      </label>
+      <label class="infos" style="display: inline-block;">Dado de baja
+        <input name="estado_activo" id="Dado de baja" type="radio"value="De baja">
+      </label>
+    </div>
+    <label class="lb" for="descripcion">Descripción:</label>
+    <input name="descripcion" id="descripcion" type="text" class="infos">
+    <div id="button-container">
+      <button id="send" type="submit">Agregar</button>
+      <button id="limpar" type="reset">Cancelar</button>
+    </div>
+  </form>
+  {% endblock %}
+</body>
+
+</html>

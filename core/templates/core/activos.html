@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/cards.css' %}?v=2">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/buttons.css' %}?v=2">
+  <title>{% block title %}Lista De Activos{% endblock %}</title>
+</head>
+<header>
+  <nav class="main-nav">
+    <div class="container-nav">
+      <div class="nav-logo">
+        <img src="{% static 'core/assets/logo.png' %}" width="60px" alt="Descripción de la imagen">
+      </div>
+      <div class="nav-items">
+        
+  
+        {% if user.is_authenticated and user.is_staff %}
+    <!-- Botón para el personal -->
+    <button class="a"><a href="{% url 'reports' %}">Reportes</a></button>
+        {% else %}
+    <!-- Botón para otros usuarios -->
+    <button class="b"><a href="{% url 'exit' %}">Salir</a></button>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  <h1>LISTA DE ACTIVOS</h1>
+  <nav class="custom-navbar">
+    <a href="{% url 'create_activo' %}">
+      <button style="height: 40px; width: 130px;" class="agregar">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+          </svg> Agregar
+        </span>
+      </button>
+    </a>
+    <div class="container-search">
+      <input type="text" name="text" class="input" placeholder="Buscar..">
+      <button class="search__btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22">
+          <path
+            d="M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z"
+            fill="#efeff1"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+  </div>
+  <div class="container">
+    {% for activo in activos %}
+      <div class="card">
+        <div style="margin-right: 100px;" class="content">
+            <span class="title">
+              {{ activo.titulo }}
+            </span>
+          </a>
+          <p class="desc">
+            Fecha: {{ activo.fecha_inicio|date:"Y-m-d" }} - {{ activo.fecha_fin|date:"Y-m-d" }}
+          </p>
+          <a href="{% url 'eliminar_activo' activo.id %}" class="eliminar-btn">
+            <button style="margin-top: 6px; background-color: red; color: aliceblue; border-radius: 8px;" type="button" class="eliminar-btn">Eliminar</button>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+</body>
+</html>

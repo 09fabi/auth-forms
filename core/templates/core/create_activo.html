@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/form1.css' %}?v=2">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+  <link type="text/css" rel="stylesheet" href="{% static 'core/css/buttons.css' %}">
+  <title>{% block title %}Crear Activo{% endblock %}</title>
+</head>
+<header>
+  <nav class="main-nav">
+    <div class="container-nav">
+      <div class="nav-logo">
+        <img src="{% static 'core/assets/logo.png' %}" width="60px" alt="logo">
+      </div>
+      <div class="nav-items">
+        <button class="a"><a href="{% url 'activos' %}">Activos</a></button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  {% block content %}
+  <form class="form" method="post" action="{% url 'create_activo' %}">
+    {% csrf_token %}
+    <label class="lb" for="titulo">Título:</label>
+    <input name="titulo" id="titulo" type="text" class="infos">
+    <label for="fecha_inicio" class="lb">Desde:</label>
+    <input name="fecha_inicio" id="fecha_inicio" type="date" class="infos">
+    <label for="fecha_fin" class="lb">Hasta:</label>
+    <input name="fecha_fin" id="fecha_fin" type="date" class="infos">
+      
+    <div id="button-container">
+      <button id="send" type="submit">Agregar</button>
+      <button id="limpar" type="reset">Cancelar</button>
+    </div>
+  </form>
+  {% endblock %}
+</body>
+
+</html>

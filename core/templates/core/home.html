@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es" class="h-100">
+
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.104.2">
+  <title>Cover Electricidad</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+  <link href={% static 'core/css/bootstrap.min.css' %} rel="stylesheet">
+  <link href={% static 'core/css/cover.css' %} rel="stylesheet">
+  <link href={% static 'core/css/custom.css' %} rel="stylesheet">
+  <link href={% static 'core/css/cardsra.css' %} rel="stylesheet">
+  <link href={% static 'core/css/presentacion.css' %} rel="stylesheet">
+  
+</head>
+
+<body class="d-flex h-100 text-center text-bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0">ADRA CHILE</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href={% url 'home' %}>Inicio</a>
+        {% if request.user.is_authenticated %}
+          <a class="nav-link fw-bold py-1 px-0" href={% url 'exit' %}>Salir</a>
+        {% else %}
+          <a class="nav-link fw-bold py-1 px-0" href={% url 'login' %}>Ingresar</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main style="margin-bottom: 300px;" class="px-3">
+    <img class="mb-4" src={% static 'core/images/adra.png' %} alt="" width="90" height="100" style="margin-top: 140px;">
+
+    {% if request.user.is_authenticated %}
+
+      <p class="lead">{% if request.user.is_authenticated %}Bienvenido {{ user.username | upper }}, {% endif %}. Todos los materiales eléctricos para sus instalaciones, puede encontrarlos en nuestra tienda. Por ser un nuevo usuario, tendrá un 20% de descuento en su primer compra online !!!</p>
+
+    {% else %}
+
+      <p style="margin-top: 20px; margin-bottom: 50px;" class="lead">La Agencia Adventista de Desarrollo y Recursos Asistenciales (ADRA), es una organización humanitaria mundial que opera en más de 130 países de todo el mundo. Fue fundada con el propósito de mejorar la calidad de vida de las personas, las familias y las comunidades que se enfrentan a la pobreza y la vulnerabilidad, mediante la ejecución de proyectos sociales con un enfoque integral y sostenible. Con nosotros podras manejar tus activos a como te de la gana y ademas si tienes permisos de administrador podras generar reportes de ellos.</p>
+
+    {% endif %}
+
+    <p class="lead">
+      <a href="{% url 'login' %}" class="btn btn-lg btn-secondary fw-bold border-dark bg-success">Ingresa Ahora!</a>
+    </p>
+  </main>
+
+</div>
+</body>
+</html>
